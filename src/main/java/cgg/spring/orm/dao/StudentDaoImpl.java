@@ -1,5 +1,7 @@
 package cgg.spring.orm.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,37 @@ public class StudentDaoImpl implements StudentDao {
 		//Insert query
 		Integer i = (Integer)hibernateTemplate.save(student);
 		return i;
+	}
+	
+	//Updating data
+	@Override
+	@Transactional
+	public void update(Student student) {
+		this.hibernateTemplate.update(student);
+		
+	}
+	
+	//Deleting the data
+	@Override
+	@Transactional
+	public void delete(int studentId) {
+		Student student = this.hibernateTemplate.get(Student.class, studentId);
+		this.hibernateTemplate.delete(student);
+		
+	}
+	
+	//Getting single data(object)
+	@Override
+	public Student getStudent(int studentId) {
+		Student student = this.hibernateTemplate.get(Student.class, studentId);
+		return student;
+	}
+	
+	//Getting all data(objects)
+	@Override
+	public List<Student> getAllStudents() {
+		List<Student> students = this.hibernateTemplate.loadAll(Student.class);
+		return students;
 	}
 
 }
