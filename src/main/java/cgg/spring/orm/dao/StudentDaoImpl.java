@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cgg.spring.orm.entities.Student;
 
+@Component("studentdao")
 public class StudentDaoImpl implements StudentDao {
 
 	
@@ -23,7 +26,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	//Save the student data
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public int insert(Student student) {
 		//Insert query
 		Integer i = (Integer)hibernateTemplate.save(student);
@@ -32,7 +35,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	//Updating data
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(Student student) {
 		this.hibernateTemplate.update(student);
 		
@@ -40,7 +43,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	//Deleting the data
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(int studentId) {
 		Student student = this.hibernateTemplate.get(Student.class, studentId);
 		this.hibernateTemplate.delete(student);

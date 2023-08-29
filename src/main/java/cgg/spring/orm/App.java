@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import cgg.spring.orm.dao.StudentDao;
 import cgg.spring.orm.entities.Student;
@@ -17,7 +16,8 @@ import cgg.spring.orm.entities.Student;
  */
 public class App {
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+		//ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		StudentDao studentdao = context.getBean("studentdao", StudentDao.class);
 
 //    	Student student = new Student();
